@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCi2H1X3vXQDP6S7fhPsfzgZZtOC7uvxTc',
+    authDomain: 'thales-shop-7d3ef.firebaseapp.com',
+    databaseURL: 'https://thales-shop-7d3ef.firebaseio.com',
+    projectId: 'thales-shop-7d3ef',
+    storageBucket: 'thales-shop-7d3ef.appspot.com',
+    messagingSenderId: '518864955128'
+  }
 };
 
 /*
