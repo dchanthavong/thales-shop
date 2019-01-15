@@ -2,8 +2,18 @@
   <mat-toolbar-row>
     <span>Thales Shop</span>
     <span class="example-spacer"></span>
-    <mat-icon class="example-icon" routerLink="/vehicles">directions_car</mat-icon>
-    <mat-icon class="example-icon" routerLink="/cart">shopping_cart</mat-icon>
-    <mat-icon class="example-icon">person</mat-icon>
+    
+    <button mat-icon-button>
+      <mat-icon routerLink="/vehicles" routerLinkActive="active-link">directions_car</mat-icon>
+    </button>
+    
+    <button mat-icon-button>
+      <mat-icon routerLink="/cart" routerLinkActive="active-link">shopping_cart</mat-icon>
+    </button>
+    
+    <button mat-icon-button>
+      <mat-icon>person</mat-icon>
+    </button>
+    
   </mat-toolbar-row>
 </mat-toolbar>
