@@ -17,6 +17,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -25,6 +27,7 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { CartComponent } from './cart/cart.component';
 import { CommandsHistoryComponent } from './commands-history/commands-history.component';
 import { HeaderComponent } from './header/header.component';
+import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 
 @NgModule({
   declarations: [
@@ -33,14 +36,15 @@ import { HeaderComponent } from './header/header.component';
     VehiclesComponent,
     CartComponent,
     CommandsHistoryComponent,
-    HeaderComponent
+    HeaderComponent,
+    VehicleCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatInputModule,
-    MatExpansionModule, MatGridListModule,
+    MatExpansionModule, MatGridListModule, MatSelectModule, MatCardModule,
     FormsModule, ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

@@ -1,7 +1,8 @@
+import { FirebaseService } from './../firebase.service';
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Promise } from 'q';
 
 @Component({
   selector: 'app-vehicles',
@@ -11,22 +12,36 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class VehiclesComponent implements OnInit {
 
   title = 'vehicles page';
-  brands: Observable<any[]>;
-  vehicles: Observable<any[]>;
+  brands = [];
+  gearboxes = [];
+  vehicles = [];
+
+  subVehicles: Subscription;
+  subBrands;
+  subGearboxes;
 
   myForm: FormGroup;
 
-  constructor(db: AngularFirestore, private fb: FormBuilder) {
-    this.brands = db.collection('brand').valueChanges();
-    this.vehicles = db.collection('vehicle').valueChanges();
+  constructor(private firebaseService: FirebaseService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.subVehicles = this.firebaseService.subscribeToVehicles().subscribe((vehicles: any) => {
+      this.vehicles = vehicles;
+      // this.handleVehiclesSubscription(vehicles);
+    });
+
+    this.subBrands = this.firebaseService.subscribeToBrands().then((brands: any) => {
+      this.brands = brands;
+    });
+    this.subGearboxes = this.firebaseService.subscribeToGearboxes().then((gearboxes: any) => {
+      this.gearboxes = gearboxes;
+    });
     this.myForm = this.fb.group({
       brand: ['', [Validators.maxLength(20)]],
       gearbox: [''],
-      minPrice: [''],
-      maxPrice: ['']
+      minPrice: [null, [Validators.min(0)]],
+      maxPrice: [null, [Validators.max(99999)]]
     });
   }
 
@@ -34,12 +49,13 @@ export class VehiclesComponent implements OnInit {
     this.myForm.setValue({
       brand: '',
       gearbox: '',
-      minPrice: '',
-      maxPrice: ''
+      minPrice: null,
+      maxPrice: null
     });
   }
 
-  applyFilters() {
+  applyFilters(brand: String, gearbox: String, minPrice: Number, maxPrice: Number) {
+    this.vehicles = this.vehicles.filter(v => v.brand === brand);
   }
 
 }

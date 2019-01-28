@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Filtrer
@@ -8,10 +8,18 @@
 
     <form [formGroup]="myForm">
       <mat-form-field>
-          <input matInput type="text" placeholder="Brand" formControlName="brand">
+          <mat-select placeholder="Brand" formControlName="brand">
+              <mat-option *ngFor="let brand of brands" [value] = "brand">
+                {{brand}}
+              </mat-option>
+            </mat-select>
       </mat-form-field>
       <mat-form-field>
-          <input matInput type="text" placeholder="Gearbox" formControlName="gearbox">
+        <mat-select placeholder="Gearbox" formControlName="gearbox">
+          <mat-option *ngFor="let gearbox of gearboxes" [value] = "gearbox">
+            {{gearbox}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
           <input matInput type="number" placeholder="Min price" formControlName="minPrice" min="0">
@@ -28,16 +36,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<div *ngFor="let vehicle of vehicles | async">
-    <mat-grid-list cols="vehicles.length" rowHeight="2:1">
-        <mat-grid-tile>
-            <img src="{{vehicle.base64}}"  alt="base64 test">
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
 
-<ul>
-  <li class="text" *ngFor="let brand of brands | async">
-    {{brand.name}}
-  </li>
-</ul>
+<div *ngFor="let vehicle of vehicles">
+  <app-vehicle-card [vehicleInfo]="vehicle"></app-vehicle-card>
+</div>

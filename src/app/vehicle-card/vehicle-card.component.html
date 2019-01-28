@@ -1,0 +1,17 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{vehicleInfo.brand}}</mat-card-title>
+      <mat-card-subtitle>{{vehicleInfo.model}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{vehicleInfo.base64}}" alt="img base64">
+    <mat-card-content>
+      <p>
+          {{vehicleInfo.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button class="shopButton" color="primary">
+            <mat-icon>shopping_cart</mat-icon>
+        </button>
+    </mat-card-actions>
+  </mat-card>
