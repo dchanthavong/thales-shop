@@ -28,6 +28,7 @@ import { CartComponent } from './cart/cart.component';
 import { CommandsHistoryComponent } from './commands-history/commands-history.component';
 import { HeaderComponent } from './header/header.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
+import {DetailsKeysPipe} from './vehicle/detailsKeys';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
     CartComponent,
     CommandsHistoryComponent,
     HeaderComponent,
-    VehicleCardComponent
+    VehicleCardComponent,
+    DetailsKeysPipe
   ],
   imports: [
     BrowserModule,

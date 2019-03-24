@@ -14,6 +14,7 @@ export class FirebaseService {
 
   constructor(private db: AngularFirestore) { }
 
+  /* Récupère la liste des voitures à un instant t */
   getVehicles(): any {
     return new Promise(resolve => {
       if (this.vehicles.length === 0) {
@@ -23,7 +24,7 @@ export class FirebaseService {
           docs.forEach(doc => {
             // const datas = this.transformDatas(doc.data(), doc.id);
             const datas = doc.data();
-
+            datas.id = doc.id;
             vehicles.push(datas);
           });
           this.vehicles = vehicles;
@@ -35,6 +36,15 @@ export class FirebaseService {
     });
   }
 
+  getVehicle(id): any {
+    return new Promise(resolve => {
+      this.getVehicles().then(vehicles => {
+        resolve(vehicles.find(vehicle => vehicle.id === id));
+      });
+    });
+  }
+
+  /* S'abonne à la base pour récupérer la liste des voitures : si changement de base, met à jour */
   subscribeToVehicles(): Observable<any> {
     return this.db
       .collection('vehicle')
@@ -48,6 +58,7 @@ export class FirebaseService {
             //   doc.payload.doc.id
             // );
             const datas = doc.payload.doc.data();
+            datas['id'] = doc.payload.doc.id;
             vehicles.push(datas);
           });
           this.vehicles = vehicles;

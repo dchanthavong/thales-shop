@@ -1,8 +1,8 @@
+import { CartService } from './../cart.service';
 import { FirebaseService } from './../firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Promise } from 'q';
 
 @Component({
   selector: 'app-vehicles',
@@ -15,6 +15,8 @@ export class VehiclesComponent implements OnInit {
   brands = [];
   gearboxes = [];
   vehicles = [];
+  filteredVehicles = [];
+  formInputs = ['brand', 'gearbox', 'minPrice', 'maxPrice'];
 
   subVehicles: Subscription;
   subBrands;
@@ -28,6 +30,8 @@ export class VehiclesComponent implements OnInit {
   ngOnInit() {
     this.subVehicles = this.firebaseService.subscribeToVehicles().subscribe((vehicles: any) => {
       this.vehicles = vehicles;
+      this.filteredVehicles = this.vehicles;
+      console.log(this.vehicles);
       // this.handleVehiclesSubscription(vehicles);
     });
 
@@ -40,22 +44,23 @@ export class VehiclesComponent implements OnInit {
     this.myForm = this.fb.group({
       brand: ['', [Validators.maxLength(20)]],
       gearbox: [''],
-      minPrice: [null, [Validators.min(0)]],
-      maxPrice: [null, [Validators.max(99999)]]
+      minPrice: ['', [Validators.min(0)]],
+      maxPrice: ['', [Validators.max(99999)]]
     });
   }
 
   clearFilters() {
-    this.myForm.setValue({
-      brand: '',
-      gearbox: '',
-      minPrice: null,
-      maxPrice: null
-    });
+    this.myForm.reset();
+    this.filteredVehicles = this.vehicles;
   }
 
-  applyFilters(brand: String, gearbox: String, minPrice: Number, maxPrice: Number) {
-    this.vehicles = this.vehicles.filter(v => v.brand === brand);
+  applyFilters() {
+    this.formInputs.forEach(formInput => {
+      if (this.myForm.get(formInput).dirty) {
+        this.filteredVehicles = this.vehicles.filter(v => (v[formInput] === this.myForm.get(formInput).value));
+        console.log(this.vehicles, this.myForm.get('gearbox').value);
+      }
+    });
   }
 
 }

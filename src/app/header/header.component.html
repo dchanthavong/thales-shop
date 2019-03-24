@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Thales Shop</span>
+    <span [routerLink]="['/']">Thales Shop</span>
     <span class="example-spacer"></span>
     
     <button mat-icon-button>
@@ -9,6 +9,7 @@
     
     <button mat-icon-button>
       <mat-icon routerLink="/cart" routerLinkActive="active-link">shopping_cart</mat-icon>
+      <div *ngIf="numberOfVehiclesInCart > 0" class="cart-annotation">{{numberOfVehiclesInCart}}</div>
     </button>
     
     <button mat-icon-button>

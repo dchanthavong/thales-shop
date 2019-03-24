@@ -1,3 +1,11 @@
-<p>
-  vehicle works!
-</p>
+<img class="img" mat-card-image src="{{vehicleDatas.base64}}" alt="img base64">
+<table class="details">
+    <tr *ngFor="let key of objectKeys(vehicleDatas) | detailsKeys">
+        <td>
+            {{ key }}
+        </td>
+      <td>
+          {{ vehicleDatas[key] }}
+      </td>
+    </tr>
+</table>
